@@ -1,0 +1,8 @@
+C:\Repo\SmallProjects\XigniteTest\bin\Debug\XigniteTest.exe.config
+C:\Repo\SmallProjects\XigniteTest\bin\Debug\XigniteTest.exe
+C:\Repo\SmallProjects\XigniteTest\bin\Debug\XigniteTest.pdb
+C:\Repo\SmallProjects\XigniteTest\obj\Debug\XigniteTest.csproj.AssemblyReference.cache
+C:\Repo\SmallProjects\XigniteTest\obj\Debug\XigniteTest.csproj.SuggestedBindingRedirects.cache
+C:\Repo\SmallProjects\XigniteTest\obj\Debug\XigniteTest.csproj.CoreCompileInputs.cache
+C:\Repo\SmallProjects\XigniteTest\obj\Debug\XigniteTest.exe
+C:\Repo\SmallProjects\XigniteTest\obj\Debug\XigniteTest.pdb

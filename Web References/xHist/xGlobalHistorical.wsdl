@@ -1,0 +1,2273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.xignite.com/services/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.xignite.com/services/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Provides historical stock quotes and closing prices for global equities.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.xignite.com/services/">
+      <s:element name="ListExchanges">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListExchangesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListExchangesResult" type="tns:ExchangeList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ExchangeList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ExchangeDescriptions" type="tns:ArrayOfExchangeDescription" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Common">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Outcome" type="tns:OutcomeTypes" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Identity" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Delay" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="OutcomeTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="Success" />
+          <s:enumeration value="SystemError" />
+          <s:enumeration value="RequestError" />
+          <s:enumeration value="RegistrationError" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfExchangeDescription">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ExchangeDescription" nillable="true" type="tns:ExchangeDescription" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ExchangeDescription">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MarketIdentificationCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Market" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Header" type="tns:Header" />
+      <s:complexType name="Header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tracer" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="ListSymbols">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartSymbol" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndSymbol" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListSymbolsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListSymbolsResult" type="tns:SymbolList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SymbolList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="tns:ExchangeDescription" />
+              <s:element minOccurs="0" maxOccurs="1" name="SecurityDescriptions" type="tns:ArrayOfSecurityDescription" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSecurityDescription">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SecurityDescription" nillable="true" type="tns:SecurityDescription" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SecurityDescription">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InstrumentClass" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListSymbolChanges">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ChangesSince" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListSymbolChangesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListSymbolChangesResult" type="tns:SymbolChangeList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SymbolChangeList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="DateTime" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SymbolChanges" type="tns:ArrayOfSymbolChange" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSymbolChange">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SymbolChange" nillable="true" type="tns:SymbolChange" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SymbolChange">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OldSymbol" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OldName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OldExchange" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OldCurrency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InstrumentClass" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListSymbolsWithAdjustedFactors">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ChangesSince" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListSymbolsWithAdjustedFactorsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListSymbolsWithAdjustedFactorsResult" type="tns:SymbolsWithAdjustedFactorsList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SymbolsWithAdjustedFactorsList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="EventSymbols" type="tns:ArrayOfEventSymbol" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfEventSymbol">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EventSymbol" nillable="true" type="tns:EventSymbol" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EventSymbol">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Event" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCashDividendHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CorporateActionsAdjusted" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCashDividendHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCashDividendHistoryResult" type="tns:CashDividendHistory" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CashDividendHistory">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CorporateActionsAdjusted" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security" />
+              <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CumulativeCashDividend" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="CashDividends" type="tns:ArrayOfCashDividend" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Security">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CIK" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CUSIP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ISIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valoren" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SEDOL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FIGI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InstrumentClass" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Market" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MarketIdentificationCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sector" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Industry" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCashDividend">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CashDividend" nillable="true" type="tns:CashDividend" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CashDividend">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentFrequency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeclaredDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecordDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PayDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExDate" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DividendAmount" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCashDividendsByExchange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CorporateActionsAdjusted" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCashDividendsByExchangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCashDividendsByExchangeResult" type="tns:ExchangeDividendsList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ExchangeDividendsList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CorporateActionsAdjusted" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExchangeDividends" type="tns:ArrayOfExchangeDividend" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfExchangeDividend">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ExchangeDividend" nillable="true" type="tns:ExchangeDividend" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ExchangeDividend">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security" />
+          <s:element minOccurs="0" maxOccurs="1" name="CashDividend" type="tns:CashDividend" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSplitHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSplitHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSplitHistoryResult" type="tns:SplitHistory" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SplitHistory">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security" />
+              <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CumulativeSplitRatio" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="Splits" type="tns:ArrayOfSplit" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSplit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Split" nillable="true" type="tns:Split" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Split">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ExDate" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Numerator" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Denominator" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="SplitRatio" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetSplitsByExchange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSplitsByExchangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSplitsByExchangeResult" type="tns:ExchangeSplitsList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ExchangeSplitsList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ExchangeSplits" type="tns:ArrayOfExchangeSplit" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfExchangeSplit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ExchangeSplit" nillable="true" type="tns:ExchangeSplit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ExchangeSplit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security" />
+          <s:element minOccurs="0" maxOccurs="1" name="Split" type="tns:Split" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGlobalHistoricalQuotes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifiers" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalQuotesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalHistoricalQuotesResult" type="tns:ArrayOfGlobalHistoricalQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGlobalHistoricalQuote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GlobalHistoricalQuote" nillable="true" type="tns:GlobalHistoricalQuote" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GlobalHistoricalQuote">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security" />
+              <s:element minOccurs="0" maxOccurs="1" name="HistoricalQuote" type="tns:HistoricalQuote" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="HistoricalQuote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Close" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Open" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="High" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Low" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="VWAP" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TWAP" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Volume" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PreviousClose" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="PreviousCloseDate" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Change" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PercentChange" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethodUsed" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CumulativeAdjustmentFactor" nillable="true" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PriceNotation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PriceAmount" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGlobalHistoricalQuotesTrailing">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PeriodType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Periods" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalQuotesTrailingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalHistoricalQuotesTrailingResult" type="tns:GlobalHistoricalQuotes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GlobalHistoricalQuotes">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security" />
+              <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="HistoricalQuotes" type="tns:ArrayOfHistoricalQuote" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfHistoricalQuote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HistoricalQuote" nillable="true" type="tns:HistoricalQuote" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGlobalHistoricalQuotesRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalQuotesRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalHistoricalQuotesRangeResult" type="tns:GlobalHistoricalQuotes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalWeeklyQuotesRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalWeeklyQuotesRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalHistoricalWeeklyQuotesRangeResult" type="tns:GlobalHistoricalQuotes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalMonthlyQuotesRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalMonthlyQuotesRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalHistoricalMonthlyQuotesRangeResult" type="tns:GlobalHistoricalQuotes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalQuarterlyQuotesRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalQuarterlyQuotesRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalHistoricalQuarterlyQuotesRangeResult" type="tns:GlobalHistoricalQuotes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalTrades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifiers" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalTradesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalHistoricalTradesResult" type="tns:ArrayOfGlobalHistoricalQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalTradesRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalTradesRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalHistoricalTradesRangeResult" type="tns:GlobalHistoricalQuotes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdjustmentFactors">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdjustmentFactorsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAdjustmentFactorsResult" type="tns:AdjustmentFactors" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AdjustmentFactors">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security" />
+              <s:element minOccurs="0" maxOccurs="1" name="ArrayOfAdjustmentFactor" type="tns:ArrayOfAdjustmentFactor" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAdjustmentFactor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AdjustmentFactor" nillable="true" type="tns:AdjustmentFactor" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AdjustmentFactor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Event" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Exdate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Factor" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CumulativeAdjustmentFactor" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGlobalHistoricalVWAP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HistoricalVWAPType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalHistoricalVWAPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalHistoricalVWAPResult" type="tns:GlobalHistoricalVWAPs" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GlobalHistoricalVWAPs">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethodUsed" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security" />
+              <s:element minOccurs="0" maxOccurs="1" name="HistoricalVWAPs" type="tns:ArrayOfHistoricalVWAP" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfHistoricalVWAP">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HistoricalVWAP" nillable="true" type="tns:HistoricalVWAP" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HistoricalVWAP">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VWAPType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VWAP" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="High" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Low" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Volume" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Change" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PercentChange" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TWAP" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Trades" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CumulativeAdjustmentFactor" nillable="true" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetChartBars">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdentifierAsOfDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Precision" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Period" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IncludeExtended" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetChartBarsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetChartBarsResult" type="tns:ChartBarsSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ChartBarsSet">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdentifierType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security" />
+              <s:element minOccurs="0" maxOccurs="1" name="ChartBars" type="tns:ArrayOfChartBar" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfChartBar">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ChartBar" nillable="true" type="tns:ChartBar" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ChartBar">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StartDateTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndDateTime" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UTCOffset" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Open" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="High" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Low" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Close" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Volume" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Trades" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TWAP" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="VWAP" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CumulativeAdjustmentFactor" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExchangeList" nillable="true" type="tns:ExchangeList" />
+      <s:element name="SymbolList" nillable="true" type="tns:SymbolList" />
+      <s:element name="SymbolChangeList" nillable="true" type="tns:SymbolChangeList" />
+      <s:element name="SymbolsWithAdjustedFactorsList" nillable="true" type="tns:SymbolsWithAdjustedFactorsList" />
+      <s:element name="CashDividendHistory" nillable="true" type="tns:CashDividendHistory" />
+      <s:element name="ExchangeDividendsList" nillable="true" type="tns:ExchangeDividendsList" />
+      <s:element name="SplitHistory" nillable="true" type="tns:SplitHistory" />
+      <s:element name="ExchangeSplitsList" nillable="true" type="tns:ExchangeSplitsList" />
+      <s:element name="ArrayOfGlobalHistoricalQuote" nillable="true" type="tns:ArrayOfGlobalHistoricalQuote" />
+      <s:element name="GlobalHistoricalQuotes" nillable="true" type="tns:GlobalHistoricalQuotes" />
+      <s:element name="AdjustmentFactors" nillable="true" type="tns:AdjustmentFactors" />
+      <s:element name="GlobalHistoricalVWAPs" nillable="true" type="tns:GlobalHistoricalVWAPs" />
+      <s:element name="ChartBarsSet" nillable="true" type="tns:ChartBarsSet" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ListExchangesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListExchanges" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListExchangesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListSymbols" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListSymbolsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListSymbolChanges" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListSymbolChangesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsWithAdjustedFactorsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListSymbolsWithAdjustedFactors" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsWithAdjustedFactorsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListSymbolsWithAdjustedFactorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsWithAdjustedFactorsHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetCashDividendHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetCashDividendHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendHistoryHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendsByExchangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCashDividendsByExchange" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendsByExchangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCashDividendsByExchangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendsByExchangeHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetSplitHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetSplitHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistoryHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitsByExchangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSplitsByExchange" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitsByExchangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSplitsByExchangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitsByExchangeHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalQuotesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesTrailingSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalQuotesTrailing" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesTrailingSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalQuotesTrailingResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesTrailingHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalQuotesRange" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalQuotesRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesRangeHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalWeeklyQuotesRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalWeeklyQuotesRange" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalWeeklyQuotesRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalWeeklyQuotesRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalWeeklyQuotesRangeHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalMonthlyQuotesRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalMonthlyQuotesRange" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalMonthlyQuotesRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalMonthlyQuotesRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalMonthlyQuotesRangeHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuarterlyQuotesRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalQuarterlyQuotesRange" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuarterlyQuotesRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalQuarterlyQuotesRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuarterlyQuotesRangeHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalTrades" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalTradesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalTradesRange" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalTradesRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesRangeHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentFactorsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAdjustmentFactors" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentFactorsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAdjustmentFactorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentFactorsHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalVWAPSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalVWAP" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalVWAPSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalHistoricalVWAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalVWAPHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetChartBars" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetChartBarsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesHttpGetIn" />
+  <wsdl:message name="ListExchangesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ExchangeList" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsHttpGetIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="StartSymbol" type="s:string" />
+    <wsdl:part name="EndSymbol" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsHttpGetOut">
+    <wsdl:part name="Body" element="tns:SymbolList" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesHttpGetIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="ChangesSince" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesHttpGetOut">
+    <wsdl:part name="Body" element="tns:SymbolChangeList" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsWithAdjustedFactorsHttpGetIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="ChangesSince" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsWithAdjustedFactorsHttpGetOut">
+    <wsdl:part name="Body" element="tns:SymbolsWithAdjustedFactorsList" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendHistoryHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+    <wsdl:part name="CorporateActionsAdjusted" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendHistoryHttpGetOut">
+    <wsdl:part name="Body" element="tns:CashDividendHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendsByExchangeHttpGetIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="ExDate" type="s:string" />
+    <wsdl:part name="CorporateActionsAdjusted" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendsByExchangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:ExchangeDividendsList" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistoryHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistoryHttpGetOut">
+    <wsdl:part name="Body" element="tns:SplitHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitsByExchangeHttpGetIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="ExDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitsByExchangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:ExchangeSplitsList" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesHttpGetIn">
+    <wsdl:part name="Identifiers" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="AsOfDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGlobalHistoricalQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesTrailingHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+    <wsdl:part name="PeriodType" type="s:string" />
+    <wsdl:part name="Periods" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesTrailingHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesRangeHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesRangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalWeeklyQuotesRangeHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalWeeklyQuotesRangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalMonthlyQuotesRangeHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalMonthlyQuotesRangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuarterlyQuotesRangeHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuarterlyQuotesRangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesHttpGetIn">
+    <wsdl:part name="Identifiers" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="AsOfDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGlobalHistoricalQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesRangeHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesRangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentFactorsHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentFactorsHttpGetOut">
+    <wsdl:part name="Body" element="tns:AdjustmentFactors" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalVWAPHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="HistoricalVWAPType" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalVWAPHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalVWAPs" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+    <wsdl:part name="Precision" type="s:string" />
+    <wsdl:part name="Period" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="IncludeExtended" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ChartBarsSet" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesHttpPostIn" />
+  <wsdl:message name="ListExchangesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ExchangeList" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsHttpPostIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="StartSymbol" type="s:string" />
+    <wsdl:part name="EndSymbol" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsHttpPostOut">
+    <wsdl:part name="Body" element="tns:SymbolList" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesHttpPostIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="ChangesSince" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesHttpPostOut">
+    <wsdl:part name="Body" element="tns:SymbolChangeList" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsWithAdjustedFactorsHttpPostIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="ChangesSince" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsWithAdjustedFactorsHttpPostOut">
+    <wsdl:part name="Body" element="tns:SymbolsWithAdjustedFactorsList" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendHistoryHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+    <wsdl:part name="CorporateActionsAdjusted" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendHistoryHttpPostOut">
+    <wsdl:part name="Body" element="tns:CashDividendHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendsByExchangeHttpPostIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="ExDate" type="s:string" />
+    <wsdl:part name="CorporateActionsAdjusted" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCashDividendsByExchangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:ExchangeDividendsList" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistoryHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistoryHttpPostOut">
+    <wsdl:part name="Body" element="tns:SplitHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitsByExchangeHttpPostIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="ExDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSplitsByExchangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:ExchangeSplitsList" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesHttpPostIn">
+    <wsdl:part name="Identifiers" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="AsOfDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGlobalHistoricalQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesTrailingHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+    <wsdl:part name="PeriodType" type="s:string" />
+    <wsdl:part name="Periods" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesTrailingHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesRangeHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuotesRangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalWeeklyQuotesRangeHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalWeeklyQuotesRangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalMonthlyQuotesRangeHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalMonthlyQuotesRangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuarterlyQuotesRangeHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalQuarterlyQuotesRangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesHttpPostIn">
+    <wsdl:part name="Identifiers" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="AsOfDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGlobalHistoricalQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesRangeHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalTradesRangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentFactorsHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAdjustmentFactorsHttpPostOut">
+    <wsdl:part name="Body" element="tns:AdjustmentFactors" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalVWAPHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="HistoricalVWAPType" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalHistoricalVWAPHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalHistoricalVWAPs" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="IdentifierAsOfDate" type="s:string" />
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+    <wsdl:part name="Precision" type="s:string" />
+    <wsdl:part name="Period" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="IncludeExtended" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ChartBarsSet" />
+  </wsdl:message>
+  <wsdl:portType name="XigniteGlobalHistoricalSoap">
+    <wsdl:operation name="ListExchanges">
+      <wsdl:input message="tns:ListExchangesSoapIn" />
+      <wsdl:output message="tns:ListExchangesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <wsdl:input message="tns:ListSymbolsSoapIn" />
+      <wsdl:output message="tns:ListSymbolsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <wsdl:input message="tns:ListSymbolChangesSoapIn" />
+      <wsdl:output message="tns:ListSymbolChangesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolsWithAdjustedFactors">
+      <wsdl:input message="tns:ListSymbolsWithAdjustedFactorsSoapIn" />
+      <wsdl:output message="tns:ListSymbolsWithAdjustedFactorsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendHistory">
+      <wsdl:input message="tns:GetCashDividendHistorySoapIn" />
+      <wsdl:output message="tns:GetCashDividendHistorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendsByExchange">
+      <wsdl:input message="tns:GetCashDividendsByExchangeSoapIn" />
+      <wsdl:output message="tns:GetCashDividendsByExchangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <wsdl:input message="tns:GetSplitHistorySoapIn" />
+      <wsdl:output message="tns:GetSplitHistorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitsByExchange">
+      <wsdl:input message="tns:GetSplitsByExchangeSoapIn" />
+      <wsdl:output message="tns:GetSplitsByExchangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotes">
+      <wsdl:input message="tns:GetGlobalHistoricalQuotesSoapIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuotesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesTrailing">
+      <wsdl:input message="tns:GetGlobalHistoricalQuotesTrailingSoapIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuotesTrailingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalQuotesRangeSoapIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuotesRangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalWeeklyQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalWeeklyQuotesRangeSoapIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalWeeklyQuotesRangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalMonthlyQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalMonthlyQuotesRangeSoapIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalMonthlyQuotesRangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuarterlyQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalQuarterlyQuotesRangeSoapIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuarterlyQuotesRangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTrades">
+      <wsdl:input message="tns:GetGlobalHistoricalTradesSoapIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalTradesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTradesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalTradesRangeSoapIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalTradesRangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentFactors">
+      <wsdl:input message="tns:GetAdjustmentFactorsSoapIn" />
+      <wsdl:output message="tns:GetAdjustmentFactorsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalVWAP">
+      <wsdl:input message="tns:GetGlobalHistoricalVWAPSoapIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalVWAPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <wsdl:input message="tns:GetChartBarsSoapIn" />
+      <wsdl:output message="tns:GetChartBarsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="XigniteGlobalHistoricalHttpGet">
+    <wsdl:operation name="ListExchanges">
+      <wsdl:input message="tns:ListExchangesHttpGetIn" />
+      <wsdl:output message="tns:ListExchangesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <wsdl:input message="tns:ListSymbolsHttpGetIn" />
+      <wsdl:output message="tns:ListSymbolsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <wsdl:input message="tns:ListSymbolChangesHttpGetIn" />
+      <wsdl:output message="tns:ListSymbolChangesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolsWithAdjustedFactors">
+      <wsdl:input message="tns:ListSymbolsWithAdjustedFactorsHttpGetIn" />
+      <wsdl:output message="tns:ListSymbolsWithAdjustedFactorsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendHistory">
+      <wsdl:input message="tns:GetCashDividendHistoryHttpGetIn" />
+      <wsdl:output message="tns:GetCashDividendHistoryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendsByExchange">
+      <wsdl:input message="tns:GetCashDividendsByExchangeHttpGetIn" />
+      <wsdl:output message="tns:GetCashDividendsByExchangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <wsdl:input message="tns:GetSplitHistoryHttpGetIn" />
+      <wsdl:output message="tns:GetSplitHistoryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitsByExchange">
+      <wsdl:input message="tns:GetSplitsByExchangeHttpGetIn" />
+      <wsdl:output message="tns:GetSplitsByExchangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotes">
+      <wsdl:input message="tns:GetGlobalHistoricalQuotesHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuotesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesTrailing">
+      <wsdl:input message="tns:GetGlobalHistoricalQuotesTrailingHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuotesTrailingHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalQuotesRangeHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuotesRangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalWeeklyQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalWeeklyQuotesRangeHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalWeeklyQuotesRangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalMonthlyQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalMonthlyQuotesRangeHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalMonthlyQuotesRangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuarterlyQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalQuarterlyQuotesRangeHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuarterlyQuotesRangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTrades">
+      <wsdl:input message="tns:GetGlobalHistoricalTradesHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalTradesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTradesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalTradesRangeHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalTradesRangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentFactors">
+      <wsdl:input message="tns:GetAdjustmentFactorsHttpGetIn" />
+      <wsdl:output message="tns:GetAdjustmentFactorsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalVWAP">
+      <wsdl:input message="tns:GetGlobalHistoricalVWAPHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalVWAPHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <wsdl:input message="tns:GetChartBarsHttpGetIn" />
+      <wsdl:output message="tns:GetChartBarsHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="XigniteGlobalHistoricalHttpPost">
+    <wsdl:operation name="ListExchanges">
+      <wsdl:input message="tns:ListExchangesHttpPostIn" />
+      <wsdl:output message="tns:ListExchangesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <wsdl:input message="tns:ListSymbolsHttpPostIn" />
+      <wsdl:output message="tns:ListSymbolsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <wsdl:input message="tns:ListSymbolChangesHttpPostIn" />
+      <wsdl:output message="tns:ListSymbolChangesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolsWithAdjustedFactors">
+      <wsdl:input message="tns:ListSymbolsWithAdjustedFactorsHttpPostIn" />
+      <wsdl:output message="tns:ListSymbolsWithAdjustedFactorsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendHistory">
+      <wsdl:input message="tns:GetCashDividendHistoryHttpPostIn" />
+      <wsdl:output message="tns:GetCashDividendHistoryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendsByExchange">
+      <wsdl:input message="tns:GetCashDividendsByExchangeHttpPostIn" />
+      <wsdl:output message="tns:GetCashDividendsByExchangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <wsdl:input message="tns:GetSplitHistoryHttpPostIn" />
+      <wsdl:output message="tns:GetSplitHistoryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitsByExchange">
+      <wsdl:input message="tns:GetSplitsByExchangeHttpPostIn" />
+      <wsdl:output message="tns:GetSplitsByExchangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotes">
+      <wsdl:input message="tns:GetGlobalHistoricalQuotesHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuotesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesTrailing">
+      <wsdl:input message="tns:GetGlobalHistoricalQuotesTrailingHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuotesTrailingHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalQuotesRangeHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuotesRangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalWeeklyQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalWeeklyQuotesRangeHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalWeeklyQuotesRangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalMonthlyQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalMonthlyQuotesRangeHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalMonthlyQuotesRangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuarterlyQuotesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalQuarterlyQuotesRangeHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalQuarterlyQuotesRangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTrades">
+      <wsdl:input message="tns:GetGlobalHistoricalTradesHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalTradesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTradesRange">
+      <wsdl:input message="tns:GetGlobalHistoricalTradesRangeHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalTradesRangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentFactors">
+      <wsdl:input message="tns:GetAdjustmentFactorsHttpPostIn" />
+      <wsdl:output message="tns:GetAdjustmentFactorsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalVWAP">
+      <wsdl:input message="tns:GetGlobalHistoricalVWAPHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalHistoricalVWAPHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <wsdl:input message="tns:GetChartBarsHttpPostIn" />
+      <wsdl:output message="tns:GetChartBarsHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="XigniteGlobalHistoricalSoap" type="tns:XigniteGlobalHistoricalSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListExchanges">
+      <soap:operation soapAction="http://www.xignite.com/services/ListExchanges" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListExchangesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <soap:operation soapAction="http://www.xignite.com/services/ListSymbols" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListSymbolsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <soap:operation soapAction="http://www.xignite.com/services/ListSymbolChanges" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListSymbolChangesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolsWithAdjustedFactors">
+      <soap:operation soapAction="http://www.xignite.com/services/ListSymbolsWithAdjustedFactors" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListSymbolsWithAdjustedFactorsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendHistory">
+      <soap:operation soapAction="http://www.xignite.com/services/GetCashDividendHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCashDividendHistoryHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendsByExchange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetCashDividendsByExchange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCashDividendsByExchangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <soap:operation soapAction="http://www.xignite.com/services/GetSplitHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSplitHistoryHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitsByExchange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetSplitsByExchange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSplitsByExchangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotes">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalQuotes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalHistoricalQuotesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesTrailing">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalQuotesTrailing" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalHistoricalQuotesTrailingHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesRange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalQuotesRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalHistoricalQuotesRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalWeeklyQuotesRange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalWeeklyQuotesRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalHistoricalWeeklyQuotesRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalMonthlyQuotesRange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalMonthlyQuotesRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalHistoricalMonthlyQuotesRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuarterlyQuotesRange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalQuarterlyQuotesRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalHistoricalQuarterlyQuotesRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTrades">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalTrades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalHistoricalTradesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTradesRange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalTradesRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalHistoricalTradesRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentFactors">
+      <soap:operation soapAction="http://www.xignite.com/services/GetAdjustmentFactors" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetAdjustmentFactorsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalVWAP">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalVWAP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalHistoricalVWAPHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <soap:operation soapAction="http://www.xignite.com/services/GetChartBars" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetChartBarsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="XigniteGlobalHistoricalSoap12" type="tns:XigniteGlobalHistoricalSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListExchanges">
+      <soap12:operation soapAction="http://www.xignite.com/services/ListExchanges" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListExchangesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <soap12:operation soapAction="http://www.xignite.com/services/ListSymbols" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListSymbolsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <soap12:operation soapAction="http://www.xignite.com/services/ListSymbolChanges" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListSymbolChangesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolsWithAdjustedFactors">
+      <soap12:operation soapAction="http://www.xignite.com/services/ListSymbolsWithAdjustedFactors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListSymbolsWithAdjustedFactorsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendHistory">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetCashDividendHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCashDividendHistoryHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendsByExchange">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetCashDividendsByExchange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCashDividendsByExchangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetSplitHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSplitHistoryHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitsByExchange">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetSplitsByExchange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSplitsByExchangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotes">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalQuotes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalHistoricalQuotesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesTrailing">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalQuotesTrailing" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalHistoricalQuotesTrailingHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesRange">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalQuotesRange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalHistoricalQuotesRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalWeeklyQuotesRange">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalWeeklyQuotesRange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalHistoricalWeeklyQuotesRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalMonthlyQuotesRange">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalMonthlyQuotesRange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalHistoricalMonthlyQuotesRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuarterlyQuotesRange">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalQuarterlyQuotesRange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalHistoricalQuarterlyQuotesRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTrades">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalTrades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalHistoricalTradesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTradesRange">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalTradesRange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalHistoricalTradesRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentFactors">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetAdjustmentFactors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetAdjustmentFactorsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalVWAP">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalHistoricalVWAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalHistoricalVWAPHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetChartBars" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetChartBarsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="XigniteGlobalHistoricalHttpGet" type="tns:XigniteGlobalHistoricalHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="ListExchanges">
+      <http:operation location="/ListExchanges" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <http:operation location="/ListSymbols" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <http:operation location="/ListSymbolChanges" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolsWithAdjustedFactors">
+      <http:operation location="/ListSymbolsWithAdjustedFactors" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendHistory">
+      <http:operation location="/GetCashDividendHistory" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendsByExchange">
+      <http:operation location="/GetCashDividendsByExchange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <http:operation location="/GetSplitHistory" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitsByExchange">
+      <http:operation location="/GetSplitsByExchange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotes">
+      <http:operation location="/GetGlobalHistoricalQuotes" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesTrailing">
+      <http:operation location="/GetGlobalHistoricalQuotesTrailing" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesRange">
+      <http:operation location="/GetGlobalHistoricalQuotesRange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalWeeklyQuotesRange">
+      <http:operation location="/GetGlobalHistoricalWeeklyQuotesRange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalMonthlyQuotesRange">
+      <http:operation location="/GetGlobalHistoricalMonthlyQuotesRange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuarterlyQuotesRange">
+      <http:operation location="/GetGlobalHistoricalQuarterlyQuotesRange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTrades">
+      <http:operation location="/GetGlobalHistoricalTrades" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTradesRange">
+      <http:operation location="/GetGlobalHistoricalTradesRange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentFactors">
+      <http:operation location="/GetAdjustmentFactors" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalVWAP">
+      <http:operation location="/GetGlobalHistoricalVWAP" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <http:operation location="/GetChartBars" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="XigniteGlobalHistoricalHttpPost" type="tns:XigniteGlobalHistoricalHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ListExchanges">
+      <http:operation location="/ListExchanges" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <http:operation location="/ListSymbols" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <http:operation location="/ListSymbolChanges" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolsWithAdjustedFactors">
+      <http:operation location="/ListSymbolsWithAdjustedFactors" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendHistory">
+      <http:operation location="/GetCashDividendHistory" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCashDividendsByExchange">
+      <http:operation location="/GetCashDividendsByExchange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <http:operation location="/GetSplitHistory" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitsByExchange">
+      <http:operation location="/GetSplitsByExchange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotes">
+      <http:operation location="/GetGlobalHistoricalQuotes" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesTrailing">
+      <http:operation location="/GetGlobalHistoricalQuotesTrailing" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuotesRange">
+      <http:operation location="/GetGlobalHistoricalQuotesRange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalWeeklyQuotesRange">
+      <http:operation location="/GetGlobalHistoricalWeeklyQuotesRange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalMonthlyQuotesRange">
+      <http:operation location="/GetGlobalHistoricalMonthlyQuotesRange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalQuarterlyQuotesRange">
+      <http:operation location="/GetGlobalHistoricalQuarterlyQuotesRange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTrades">
+      <http:operation location="/GetGlobalHistoricalTrades" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalTradesRange">
+      <http:operation location="/GetGlobalHistoricalTradesRange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdjustmentFactors">
+      <http:operation location="/GetAdjustmentFactors" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalHistoricalVWAP">
+      <http:operation location="/GetGlobalHistoricalVWAP" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <http:operation location="/GetChartBars" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="XigniteGlobalHistorical">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Provides historical stock quotes and closing prices for global equities.</wsdl:documentation>
+    <wsdl:port name="XigniteGlobalHistoricalSoap" binding="tns:XigniteGlobalHistoricalSoap">
+      <soap:address location="http://globalhistorical.xignite.com/v3/xGlobalHistorical.asmx" />
+    </wsdl:port>
+    <wsdl:port name="XigniteGlobalHistoricalSoap12" binding="tns:XigniteGlobalHistoricalSoap12">
+      <soap12:address location="http://globalhistorical.xignite.com/v3/xGlobalHistorical.asmx" />
+    </wsdl:port>
+    <wsdl:port name="XigniteGlobalHistoricalHttpGet" binding="tns:XigniteGlobalHistoricalHttpGet">
+      <http:address location="http://globalhistorical.xignite.com/v3/xGlobalHistorical.asmx" />
+    </wsdl:port>
+    <wsdl:port name="XigniteGlobalHistoricalHttpPost" binding="tns:XigniteGlobalHistoricalHttpPost">
+      <http:address location="http://globalhistorical.xignite.com/v3/xGlobalHistorical.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
