@@ -6,3 +6,11 @@ C:\Repo\SmallProjects\XigniteTest\obj\Debug\XigniteTest.csproj.SuggestedBindingR
 C:\Repo\SmallProjects\XigniteTest\obj\Debug\XigniteTest.csproj.CoreCompileInputs.cache
 C:\Repo\SmallProjects\XigniteTest\obj\Debug\XigniteTest.exe
 C:\Repo\SmallProjects\XigniteTest\obj\Debug\XigniteTest.pdb
+C:\temp\Delete\XigniteTest\bin\Debug\XigniteTest.exe.config
+C:\temp\Delete\XigniteTest\bin\Debug\XigniteTest.exe
+C:\temp\Delete\XigniteTest\bin\Debug\XigniteTest.pdb
+C:\temp\Delete\XigniteTest\obj\Debug\XigniteTest.csproj.AssemblyReference.cache
+C:\temp\Delete\XigniteTest\obj\Debug\XigniteTest.csproj.SuggestedBindingRedirects.cache
+C:\temp\Delete\XigniteTest\obj\Debug\XigniteTest.csproj.CoreCompileInputs.cache
+C:\temp\Delete\XigniteTest\obj\Debug\XigniteTest.exe
+C:\temp\Delete\XigniteTest\obj\Debug\XigniteTest.pdb

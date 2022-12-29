@@ -35,8 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-	<Reference Include="System.EnterpriseServices" />
-	<Reference Include="System.Web.Services" />  
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,86 +47,140 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-	<Compile Include="Properties\Settings.Designer.cs">
-		<AutoGen>True</AutoGen>
-		<DesignTimeSharedInput>True</DesignTimeSharedInput>
-		<DependentUpon>Settings.settings</DependentUpon>
-	</Compile>
-	<Compile Include="Web References\xHist\Reference.cs">
-		<AutoGen>True</AutoGen>
-		<DesignTime>True</DesignTime>
-		<DependentUpon>Reference.map</DependentUpon>
-	</Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\xGlobalDelayed\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\xHist\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-	  <None Include="Properties\Settings.settings">
-		  <Generator>SettingsSingleFileGenerator</Generator>
-		  <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-	  </None>
-	  <None Include="Web References\xHist\AdjustmentFactors.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\CashDividendHistory.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\ChartBarsSet.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\ExchangeDividendsList.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\ExchangeList.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\ExchangeSplitsList.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\GlobalHistoricalQuote.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\GlobalHistoricalQuotes.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\GlobalHistoricalVWAPs.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\Reference.map">
-		  <Generator>MSDiscoCodeGenerator</Generator>
-		  <LastGenOutput>Reference.cs</LastGenOutput>
-	  </None>
-	  <None Include="Web References\xHist\SplitHistory.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\SymbolChangeList.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\SymbolList.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\SymbolsWithAdjustedFactorsList.datasource">
-		  <DependentUpon>Reference.map</DependentUpon>
-	  </None>
-	  <None Include="Web References\xHist\xGlobalHistorical.wsdl" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\xGlobalDelayed\EquityChartBars.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\ExchangeList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\GlobalAuctionQuote.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\GlobalBar.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\GlobalBars.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\GlobalExtendedQuote.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\GlobalQuote.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\IntradayVWAP.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\MarketMovers.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\xGlobalDelayed\SymbolChangeList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\SymbolList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xGlobalDelayed\xGlobalQuotes.wsdl" />
+    <None Include="Web References\xHist\AdjustmentFactors.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\CashDividendHistory.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\ChartBarsSet.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\ExchangeDividendsList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\ExchangeList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\ExchangeSplitsList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\GlobalHistoricalQuote.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\GlobalHistoricalQuotes.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\GlobalHistoricalVWAPs.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\xHist\SplitHistory.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\SymbolChangeList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\SymbolList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\SymbolsWithAdjustedFactorsList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\xHist\xGlobalHistorical.wsdl" />
   </ItemGroup>
   <ItemGroup>
-	  <WCFMetadata Include="Connected Services\" />
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-	  <WebReferences Include="Web References\" />
+    <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-	  <WebReferenceUrl Include="http://globalhistorical.xignite.com/v3/xGlobalHistorical.asmx%3fwsdl">
-		  <UrlBehavior>Dynamic</UrlBehavior>
-		  <RelPath>Web References\xHist\</RelPath>
-		  <UpdateFromURL>http://globalhistorical.xignite.com/v3/xGlobalHistorical.asmx%3fwsdl</UpdateFromURL>
-		  <ServiceLocationURL>
-		  </ServiceLocationURL>
-		  <CachedDynamicPropName>
-		  </CachedDynamicPropName>
-		  <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-		  <CachedSettingsPropName>XigniteTest_xHist_XigniteGlobalHistorical</CachedSettingsPropName>
-	  </WebReferenceUrl>
+    <WebReferenceUrl Include="http://globalhistorical.xignite.com/v3/xGlobalHistorical.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\xHist\</RelPath>
+      <UpdateFromURL>http://globalhistorical.xignite.com/v3/xGlobalHistorical.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>XigniteTest_xHist_XigniteGlobalHistorical</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://globalquotes.xignite.com/v3/xGlobalQuotes.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\xGlobalDelayed\</RelPath>
+      <UpdateFromURL>http://globalquotes.xignite.com/v3/xGlobalQuotes.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>XigniteTest_xGlobalDelayed_XigniteGlobalQuotes</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

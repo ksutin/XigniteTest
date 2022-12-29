@@ -1,0 +1,1751 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://www.xignite.com/services/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://www.xignite.com/services/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This web service provides global delayed stock quotes and for U.S. and international equities.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.xignite.com/services/">
+      <s:element name="GetBars">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Precision" type="tns:TickPrecisions" />
+            <s:element minOccurs="1" maxOccurs="1" name="Period" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="IdentifierTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="Symbol" />
+          <s:enumeration value="CIK" />
+          <s:enumeration value="CUSIP" />
+          <s:enumeration value="ISIN" />
+          <s:enumeration value="Valoren" />
+          <s:enumeration value="SEDOL" />
+          <s:enumeration value="FIGI" />
+          <s:enumeration value="CompositeFIGI" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="TickPrecisions">
+        <s:restriction base="s:string">
+          <s:enumeration value="Seconds" />
+          <s:enumeration value="Minutes" />
+          <s:enumeration value="Hours" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetBarsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBarsResult" type="tns:GlobalBars" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GlobalBars">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:QuoteWithSecurity">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Bars" type="tns:ArrayOfBar" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="QuoteWithSecurity">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Common">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Outcome" type="tns:OutcomeTypes" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Identity" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Delay" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="OutcomeTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="Success" />
+          <s:enumeration value="SystemError" />
+          <s:enumeration value="RequestError" />
+          <s:enumeration value="RegistrationError" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Security">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CIK" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CUSIP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ISIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valoren" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Market" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MarketIdentificationCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MostLiquidExchange" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryOrIndustry" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBar">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Bar" nillable="true" type="tns:Bar" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Bar">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UTCOffset" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Open" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="High" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Low" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Close" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Volume" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Trades" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TWAP" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="VWAP" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Header" type="tns:Header" />
+      <s:complexType name="Header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tracer" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="GetGlobalDelayedQuotes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifiers" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalDelayedQuotesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalDelayedQuotesResult" type="tns:ArrayOfGlobalQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGlobalQuote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GlobalQuote" nillable="true" type="tns:GlobalQuote" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GlobalQuote">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:QuoteWithSecurity">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Time" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="UTCOffset" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Open" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Close" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="High" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Low" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Last" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastSize" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Volume" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PreviousClose" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="PreviousCloseDate" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ChangeFromPreviousClose" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PercentChangeFromPreviousClose" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Bid" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="BidSize" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="BidDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BidTime" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Ask" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="AskSize" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="AskDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AskTime" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="High52Weeks" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Low52Weeks" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TradingHalted" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ListSymbols">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartSymbol" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndSymbol" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListSymbolsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListSymbolsResult" type="tns:SymbolList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SymbolList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="tns:ExchangeDescription" />
+              <s:element minOccurs="0" maxOccurs="1" name="SecurityDescriptions" type="tns:ArrayOfSecurityDescription" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ExchangeDescription">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MarketIdentificationCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Market" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSecurityDescription">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SecurityDescription" nillable="true" type="tns:SecurityDescription" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SecurityDescription">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGlobalDelayedQuote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalDelayedQuoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalDelayedQuoteResult" type="tns:GlobalQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalExtendedQuote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalExtendedQuoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalExtendedQuoteResult" type="tns:GlobalExtendedQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GlobalExtendedQuote">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:GlobalQuote">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="VolumeDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExtendedHoursDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExtendedHoursTime" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExtendedHoursType" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ExtendedHoursPrice" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ExtendedHoursChange" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ExtendedHoursPercentChange" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="LimitDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LimitTime" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="LimitDown" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="LimitUp" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetAuctionPrices">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifiers" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAuctionPricesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAuctionPricesResult" type="tns:ArrayOfGlobalAuctionQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGlobalAuctionQuote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GlobalAuctionQuote" nillable="true" type="tns:GlobalAuctionQuote" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GlobalAuctionQuote">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:QuoteWithSecurity">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="OpeningAuction" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="OpeningAuctionSize" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="OpeningAuctionDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="OpeningAuctionTime" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ClosingAuction" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ClosingAuctionSize" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClosingAuctionDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClosingAuctionTime" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastAuction" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastAuctionSize" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PreviousClosingAuction" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="PreviousClosingAuctionDate" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="UTCOffset" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Time" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetGlobalExtendedQuotes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifiers" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalExtendedQuotesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalExtendedQuotesResult" type="tns:ArrayOfGlobalExtendedQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGlobalExtendedQuote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GlobalExtendedQuote" nillable="true" type="tns:GlobalExtendedQuote" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetBar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Precision" type="tns:TickPrecisions" />
+            <s:element minOccurs="1" maxOccurs="1" name="Period" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBarResult" type="tns:GlobalBar" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GlobalBar">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:QuoteWithSecurity">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Bar" type="tns:Bar" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetChartBars">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Precision" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Period" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustmentMethod" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IncludeExtended" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetChartBarsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetChartBarsResult" type="tns:EquityChartBars" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EquityChartBars">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:QuoteWithSecurity">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Timing" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ChartBars" type="tns:ArrayOfChartBar" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfChartBar">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ChartBar" nillable="true" type="tns:ChartBar" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ChartBar">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UTCOffset" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Open" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="High" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Low" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Close" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Volume" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Trades" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TWAP" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="VWAP" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Session" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AdjustmentRatio" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTopMarketMovers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MarketMoverType" type="tns:MarketMoverTypes" />
+            <s:element minOccurs="1" maxOccurs="1" name="NumberOfMarketMovers" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Exchanges" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="MarketMoverTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="PercentGainers" />
+          <s:enumeration value="PercentLosers" />
+          <s:enumeration value="MostActive" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetTopMarketMoversResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTopMarketMoversResult" type="tns:MarketMovers" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MarketMovers">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="MarketMoverType" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="NumberOfMarketMovers" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Exchanges" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="InstrumentClass" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Movers" type="tns:ArrayOfMarketMover" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfMarketMover">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MarketMover" nillable="true" type="tns:MarketMover" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MarketMover">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="MarketMoverType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="InstrumentClass" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Market" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MarketIdentificationCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Time" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="UTCOffset" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Last" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ChangeFromPreviousClose" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PercentChangeFromPreviousClose" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Volume" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ListExchanges">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListExchangesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListExchangesResult" type="tns:ExchangeList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ExchangeList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ExchangeDescriptions" type="tns:ArrayOfExchangeDescription" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfExchangeDescription">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ExchangeDescription" nillable="true" type="tns:ExchangeDescription" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListSymbolChanges">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ChangesSince" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListSymbolChangesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListSymbolChangesResult" type="tns:SymbolChangeList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SymbolChangeList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="DateTime" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SymbolChanges" type="tns:ArrayOfSymbolChange" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSymbolChange">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SymbolChange" nillable="true" type="tns:SymbolChange" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SymbolChange">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OldSymbol" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OldName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OldExchange" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OldCurrency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InstrumentClass" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGlobalDelayedVWAP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalDelayedVWAPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalDelayedVWAPResult" type="tns:IntradayVWAP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="IntradayVWAP">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:QuoteWithSecurity">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="UTCOffset" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="VWAPType" type="tns:IntradayVWAPTypes" />
+              <s:element minOccurs="1" maxOccurs="1" name="VWAP" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="High" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Low" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Average" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Volume" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Trades" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="IntradayVWAPTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="RealTime" />
+          <s:enumeration value="Delayed" />
+          <s:enumeration value="OneMinute" />
+          <s:enumeration value="FiveMinute" />
+          <s:enumeration value="TenMinute" />
+          <s:enumeration value="ThirtyMinute" />
+          <s:enumeration value="OneHour" />
+          <s:enumeration value="Period" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetGlobalIntradayVWAP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalIntradayVWAPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalIntradayVWAPResult" type="tns:IntradayVWAP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GlobalBars" nillable="true" type="tns:GlobalBars" />
+      <s:element name="ArrayOfGlobalQuote" nillable="true" type="tns:ArrayOfGlobalQuote" />
+      <s:element name="SymbolList" nillable="true" type="tns:SymbolList" />
+      <s:element name="GlobalQuote" nillable="true" type="tns:GlobalQuote" />
+      <s:element name="GlobalExtendedQuote" nillable="true" type="tns:GlobalExtendedQuote" />
+      <s:element name="ArrayOfGlobalAuctionQuote" nillable="true" type="tns:ArrayOfGlobalAuctionQuote" />
+      <s:element name="ArrayOfGlobalExtendedQuote" nillable="true" type="tns:ArrayOfGlobalExtendedQuote" />
+      <s:element name="GlobalBar" nillable="true" type="tns:GlobalBar" />
+      <s:element name="EquityChartBars" nillable="true" type="tns:EquityChartBars" />
+      <s:element name="MarketMovers" nillable="true" type="tns:MarketMovers" />
+      <s:element name="ExchangeList" nillable="true" type="tns:ExchangeList" />
+      <s:element name="SymbolChangeList" nillable="true" type="tns:SymbolChangeList" />
+      <s:element name="IntradayVWAP" nillable="true" type="tns:IntradayVWAP" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetBarsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBars" />
+  </wsdl:message>
+  <wsdl:message name="GetBarsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBarsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBarsHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuotesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalDelayedQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuotesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalDelayedQuotesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuotesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListSymbols" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListSymbolsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuoteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalDelayedQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuoteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalDelayedQuoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuoteHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuoteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalExtendedQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuoteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalExtendedQuoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuoteHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetAuctionPricesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAuctionPrices" />
+  </wsdl:message>
+  <wsdl:message name="GetAuctionPricesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAuctionPricesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAuctionPricesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuotesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalExtendedQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuotesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalExtendedQuotesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuotesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetBarSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBar" />
+  </wsdl:message>
+  <wsdl:message name="GetBarSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBarResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBarHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetChartBars" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetChartBarsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetTopMarketMoversSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTopMarketMovers" />
+  </wsdl:message>
+  <wsdl:message name="GetTopMarketMoversSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTopMarketMoversResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTopMarketMoversHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListExchanges" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListExchangesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListSymbolChanges" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListSymbolChangesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedVWAPSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalDelayedVWAP" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedVWAPSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalDelayedVWAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedVWAPHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalIntradayVWAPSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalIntradayVWAP" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalIntradayVWAPSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalIntradayVWAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalIntradayVWAPHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetBarsHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+    <wsdl:part name="Precision" type="s:string" />
+    <wsdl:part name="Period" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetBarsHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalBars" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuotesHttpGetIn">
+    <wsdl:part name="Identifiers" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuotesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGlobalQuote" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsHttpGetIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="StartSymbol" type="s:string" />
+    <wsdl:part name="EndSymbol" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsHttpGetOut">
+    <wsdl:part name="Body" element="tns:SymbolList" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuoteHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuoteHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuoteHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuoteHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalExtendedQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetAuctionPricesHttpGetIn">
+    <wsdl:part name="Identifiers" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAuctionPricesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGlobalAuctionQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuotesHttpGetIn">
+    <wsdl:part name="Identifiers" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuotesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGlobalExtendedQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetBarHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+    <wsdl:part name="Precision" type="s:string" />
+    <wsdl:part name="Period" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetBarHttpGetOut">
+    <wsdl:part name="Body" element="tns:GlobalBar" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+    <wsdl:part name="Precision" type="s:string" />
+    <wsdl:part name="Period" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="IncludeExtended" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsHttpGetOut">
+    <wsdl:part name="Body" element="tns:EquityChartBars" />
+  </wsdl:message>
+  <wsdl:message name="GetTopMarketMoversHttpGetIn">
+    <wsdl:part name="MarketMoverType" type="s:string" />
+    <wsdl:part name="NumberOfMarketMovers" type="s:string" />
+    <wsdl:part name="Exchanges" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTopMarketMoversHttpGetOut">
+    <wsdl:part name="Body" element="tns:MarketMovers" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesHttpGetIn" />
+  <wsdl:message name="ListExchangesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ExchangeList" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesHttpGetIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="ChangesSince" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesHttpGetOut">
+    <wsdl:part name="Body" element="tns:SymbolChangeList" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedVWAPHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedVWAPHttpGetOut">
+    <wsdl:part name="Body" element="tns:IntradayVWAP" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalIntradayVWAPHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalIntradayVWAPHttpGetOut">
+    <wsdl:part name="Body" element="tns:IntradayVWAP" />
+  </wsdl:message>
+  <wsdl:message name="GetBarsHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+    <wsdl:part name="Precision" type="s:string" />
+    <wsdl:part name="Period" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetBarsHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalBars" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuotesHttpPostIn">
+    <wsdl:part name="Identifiers" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuotesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGlobalQuote" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsHttpPostIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="StartSymbol" type="s:string" />
+    <wsdl:part name="EndSymbol" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolsHttpPostOut">
+    <wsdl:part name="Body" element="tns:SymbolList" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuoteHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedQuoteHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuoteHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuoteHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalExtendedQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetAuctionPricesHttpPostIn">
+    <wsdl:part name="Identifiers" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAuctionPricesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGlobalAuctionQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuotesHttpPostIn">
+    <wsdl:part name="Identifiers" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalExtendedQuotesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGlobalExtendedQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetBarHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+    <wsdl:part name="Precision" type="s:string" />
+    <wsdl:part name="Period" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetBarHttpPostOut">
+    <wsdl:part name="Body" element="tns:GlobalBar" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+    <wsdl:part name="Precision" type="s:string" />
+    <wsdl:part name="Period" type="s:string" />
+    <wsdl:part name="AdjustmentMethod" type="s:string" />
+    <wsdl:part name="IncludeExtended" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetChartBarsHttpPostOut">
+    <wsdl:part name="Body" element="tns:EquityChartBars" />
+  </wsdl:message>
+  <wsdl:message name="GetTopMarketMoversHttpPostIn">
+    <wsdl:part name="MarketMoverType" type="s:string" />
+    <wsdl:part name="NumberOfMarketMovers" type="s:string" />
+    <wsdl:part name="Exchanges" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTopMarketMoversHttpPostOut">
+    <wsdl:part name="Body" element="tns:MarketMovers" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesHttpPostIn" />
+  <wsdl:message name="ListExchangesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ExchangeList" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesHttpPostIn">
+    <wsdl:part name="Exchange" type="s:string" />
+    <wsdl:part name="ChangesSince" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListSymbolChangesHttpPostOut">
+    <wsdl:part name="Body" element="tns:SymbolChangeList" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedVWAPHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalDelayedVWAPHttpPostOut">
+    <wsdl:part name="Body" element="tns:IntradayVWAP" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalIntradayVWAPHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string" />
+    <wsdl:part name="IdentifierType" type="s:string" />
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalIntradayVWAPHttpPostOut">
+    <wsdl:part name="Body" element="tns:IntradayVWAP" />
+  </wsdl:message>
+  <wsdl:portType name="XigniteGlobalQuotesSoap">
+    <wsdl:operation name="GetBars">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a set of bars for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetBarsSoapIn" />
+      <wsdl:output message="tns:GetBarsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuotes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns delayed quotes for a collection of global securities.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalDelayedQuotesSoapIn" />
+      <wsdl:output message="tns:GetGlobalDelayedQuotesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This operation returns symbols in this exchange.</wsdl:documentation>
+      <wsdl:input message="tns:ListSymbolsSoapIn" />
+      <wsdl:output message="tns:ListSymbolsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a delayed quote for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalDelayedQuoteSoapIn" />
+      <wsdl:output message="tns:GetGlobalDelayedQuoteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a delayed extended quote for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalExtendedQuoteSoapIn" />
+      <wsdl:output message="tns:GetGlobalExtendedQuoteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuctionPrices">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a realtime quote for a collection of global securities.</wsdl:documentation>
+      <wsdl:input message="tns:GetAuctionPricesSoapIn" />
+      <wsdl:output message="tns:GetAuctionPricesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuotes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns delayed extended quotes for a collection of global securities.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalExtendedQuotesSoapIn" />
+      <wsdl:output message="tns:GetGlobalExtendedQuotesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBar">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a single bar for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetBarSoapIn" />
+      <wsdl:output message="tns:GetBarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a set of bars for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetChartBarsSoapIn" />
+      <wsdl:output message="tns:GetChartBarsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMarketMovers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get top global securities by type.</wsdl:documentation>
+      <wsdl:input message="tns:GetTopMarketMoversSoapIn" />
+      <wsdl:output message="tns:GetTopMarketMoversSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListExchanges">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List supported exchanges.</wsdl:documentation>
+      <wsdl:input message="tns:ListExchangesSoapIn" />
+      <wsdl:output message="tns:ListExchangesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This operation returns symbols changed in this exchange.</wsdl:documentation>
+      <wsdl:input message="tns:ListSymbolChangesSoapIn" />
+      <wsdl:output message="tns:ListSymbolChangesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedVWAP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a delayed VWAP for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalDelayedVWAPSoapIn" />
+      <wsdl:output message="tns:GetGlobalDelayedVWAPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalIntradayVWAP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns an intraday VWAP for a global security based on the trades performed in a time range.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalIntradayVWAPSoapIn" />
+      <wsdl:output message="tns:GetGlobalIntradayVWAPSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="XigniteGlobalQuotesHttpGet">
+    <wsdl:operation name="GetBars">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a set of bars for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetBarsHttpGetIn" />
+      <wsdl:output message="tns:GetBarsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuotes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns delayed quotes for a collection of global securities.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalDelayedQuotesHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalDelayedQuotesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This operation returns symbols in this exchange.</wsdl:documentation>
+      <wsdl:input message="tns:ListSymbolsHttpGetIn" />
+      <wsdl:output message="tns:ListSymbolsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a delayed quote for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalDelayedQuoteHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalDelayedQuoteHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a delayed extended quote for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalExtendedQuoteHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalExtendedQuoteHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuctionPrices">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a realtime quote for a collection of global securities.</wsdl:documentation>
+      <wsdl:input message="tns:GetAuctionPricesHttpGetIn" />
+      <wsdl:output message="tns:GetAuctionPricesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuotes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns delayed extended quotes for a collection of global securities.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalExtendedQuotesHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalExtendedQuotesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBar">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a single bar for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetBarHttpGetIn" />
+      <wsdl:output message="tns:GetBarHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a set of bars for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetChartBarsHttpGetIn" />
+      <wsdl:output message="tns:GetChartBarsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMarketMovers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get top global securities by type.</wsdl:documentation>
+      <wsdl:input message="tns:GetTopMarketMoversHttpGetIn" />
+      <wsdl:output message="tns:GetTopMarketMoversHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListExchanges">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List supported exchanges.</wsdl:documentation>
+      <wsdl:input message="tns:ListExchangesHttpGetIn" />
+      <wsdl:output message="tns:ListExchangesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This operation returns symbols changed in this exchange.</wsdl:documentation>
+      <wsdl:input message="tns:ListSymbolChangesHttpGetIn" />
+      <wsdl:output message="tns:ListSymbolChangesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedVWAP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a delayed VWAP for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalDelayedVWAPHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalDelayedVWAPHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalIntradayVWAP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns an intraday VWAP for a global security based on the trades performed in a time range.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalIntradayVWAPHttpGetIn" />
+      <wsdl:output message="tns:GetGlobalIntradayVWAPHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="XigniteGlobalQuotesHttpPost">
+    <wsdl:operation name="GetBars">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a set of bars for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetBarsHttpPostIn" />
+      <wsdl:output message="tns:GetBarsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuotes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns delayed quotes for a collection of global securities.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalDelayedQuotesHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalDelayedQuotesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This operation returns symbols in this exchange.</wsdl:documentation>
+      <wsdl:input message="tns:ListSymbolsHttpPostIn" />
+      <wsdl:output message="tns:ListSymbolsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a delayed quote for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalDelayedQuoteHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalDelayedQuoteHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a delayed extended quote for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalExtendedQuoteHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalExtendedQuoteHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuctionPrices">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a realtime quote for a collection of global securities.</wsdl:documentation>
+      <wsdl:input message="tns:GetAuctionPricesHttpPostIn" />
+      <wsdl:output message="tns:GetAuctionPricesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuotes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns delayed extended quotes for a collection of global securities.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalExtendedQuotesHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalExtendedQuotesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBar">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a single bar for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetBarHttpPostIn" />
+      <wsdl:output message="tns:GetBarHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a set of bars for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetChartBarsHttpPostIn" />
+      <wsdl:output message="tns:GetChartBarsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMarketMovers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get top global securities by type.</wsdl:documentation>
+      <wsdl:input message="tns:GetTopMarketMoversHttpPostIn" />
+      <wsdl:output message="tns:GetTopMarketMoversHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListExchanges">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List supported exchanges.</wsdl:documentation>
+      <wsdl:input message="tns:ListExchangesHttpPostIn" />
+      <wsdl:output message="tns:ListExchangesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This operation returns symbols changed in this exchange.</wsdl:documentation>
+      <wsdl:input message="tns:ListSymbolChangesHttpPostIn" />
+      <wsdl:output message="tns:ListSymbolChangesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedVWAP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a delayed VWAP for a global security.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalDelayedVWAPHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalDelayedVWAPHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalIntradayVWAP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns an intraday VWAP for a global security based on the trades performed in a time range.</wsdl:documentation>
+      <wsdl:input message="tns:GetGlobalIntradayVWAPHttpPostIn" />
+      <wsdl:output message="tns:GetGlobalIntradayVWAPHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="XigniteGlobalQuotesSoap" type="tns:XigniteGlobalQuotesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetBars">
+      <soap:operation soapAction="http://www.xignite.com/services/GetBars" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetBarsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuotes">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalDelayedQuotes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalDelayedQuotesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <soap:operation soapAction="http://www.xignite.com/services/ListSymbols" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListSymbolsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuote">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalDelayedQuote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalDelayedQuoteHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuote">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalExtendedQuote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalExtendedQuoteHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuctionPrices">
+      <soap:operation soapAction="http://www.xignite.com/services/GetAuctionPrices" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetAuctionPricesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuotes">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalExtendedQuotes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalExtendedQuotesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBar">
+      <soap:operation soapAction="http://www.xignite.com/services/GetBar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetBarHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <soap:operation soapAction="http://www.xignite.com/services/GetChartBars" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetChartBarsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMarketMovers">
+      <soap:operation soapAction="http://www.xignite.com/services/GetTopMarketMovers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTopMarketMoversHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListExchanges">
+      <soap:operation soapAction="http://www.xignite.com/services/ListExchanges" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListExchangesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <soap:operation soapAction="http://www.xignite.com/services/ListSymbolChanges" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListSymbolChangesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedVWAP">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalDelayedVWAP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalDelayedVWAPHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalIntradayVWAP">
+      <soap:operation soapAction="http://www.xignite.com/services/GetGlobalIntradayVWAP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetGlobalIntradayVWAPHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="XigniteGlobalQuotesSoap12" type="tns:XigniteGlobalQuotesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetBars">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetBars" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetBarsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuotes">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalDelayedQuotes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalDelayedQuotesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <soap12:operation soapAction="http://www.xignite.com/services/ListSymbols" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListSymbolsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuote">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalDelayedQuote" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalDelayedQuoteHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuote">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalExtendedQuote" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalExtendedQuoteHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuctionPrices">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetAuctionPrices" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetAuctionPricesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuotes">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalExtendedQuotes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalExtendedQuotesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBar">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetBar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetBarHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetChartBars" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetChartBarsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMarketMovers">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetTopMarketMovers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTopMarketMoversHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListExchanges">
+      <soap12:operation soapAction="http://www.xignite.com/services/ListExchanges" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListExchangesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <soap12:operation soapAction="http://www.xignite.com/services/ListSymbolChanges" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListSymbolChangesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedVWAP">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalDelayedVWAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalDelayedVWAPHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalIntradayVWAP">
+      <soap12:operation soapAction="http://www.xignite.com/services/GetGlobalIntradayVWAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetGlobalIntradayVWAPHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="XigniteGlobalQuotesHttpGet" type="tns:XigniteGlobalQuotesHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetBars">
+      <http:operation location="/GetBars" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuotes">
+      <http:operation location="/GetGlobalDelayedQuotes" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <http:operation location="/ListSymbols" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuote">
+      <http:operation location="/GetGlobalDelayedQuote" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuote">
+      <http:operation location="/GetGlobalExtendedQuote" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuctionPrices">
+      <http:operation location="/GetAuctionPrices" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuotes">
+      <http:operation location="/GetGlobalExtendedQuotes" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBar">
+      <http:operation location="/GetBar" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <http:operation location="/GetChartBars" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMarketMovers">
+      <http:operation location="/GetTopMarketMovers" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListExchanges">
+      <http:operation location="/ListExchanges" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <http:operation location="/ListSymbolChanges" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedVWAP">
+      <http:operation location="/GetGlobalDelayedVWAP" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalIntradayVWAP">
+      <http:operation location="/GetGlobalIntradayVWAP" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="XigniteGlobalQuotesHttpPost" type="tns:XigniteGlobalQuotesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetBars">
+      <http:operation location="/GetBars" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuotes">
+      <http:operation location="/GetGlobalDelayedQuotes" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbols">
+      <http:operation location="/ListSymbols" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedQuote">
+      <http:operation location="/GetGlobalDelayedQuote" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuote">
+      <http:operation location="/GetGlobalExtendedQuote" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuctionPrices">
+      <http:operation location="/GetAuctionPrices" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalExtendedQuotes">
+      <http:operation location="/GetGlobalExtendedQuotes" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBar">
+      <http:operation location="/GetBar" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChartBars">
+      <http:operation location="/GetChartBars" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMarketMovers">
+      <http:operation location="/GetTopMarketMovers" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListExchanges">
+      <http:operation location="/ListExchanges" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSymbolChanges">
+      <http:operation location="/ListSymbolChanges" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalDelayedVWAP">
+      <http:operation location="/GetGlobalDelayedVWAP" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalIntradayVWAP">
+      <http:operation location="/GetGlobalIntradayVWAP" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="XigniteGlobalQuotes">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This web service provides global delayed stock quotes and for U.S. and international equities.</wsdl:documentation>
+    <wsdl:port name="XigniteGlobalQuotesSoap" binding="tns:XigniteGlobalQuotesSoap">
+      <soap:address location="http://globalquotes.xignite.com/v3/xGlobalQuotes.asmx" />
+    </wsdl:port>
+    <wsdl:port name="XigniteGlobalQuotesSoap12" binding="tns:XigniteGlobalQuotesSoap12">
+      <soap12:address location="http://globalquotes.xignite.com/v3/xGlobalQuotes.asmx" />
+    </wsdl:port>
+    <wsdl:port name="XigniteGlobalQuotesHttpGet" binding="tns:XigniteGlobalQuotesHttpGet">
+      <http:address location="http://globalquotes.xignite.com/v3/xGlobalQuotes.asmx" />
+    </wsdl:port>
+    <wsdl:port name="XigniteGlobalQuotesHttpPost" binding="tns:XigniteGlobalQuotesHttpPost">
+      <http:address location="http://globalquotes.xignite.com/v3/xGlobalQuotes.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -12,12 +12,14 @@ namespace XigniteTest
         {
             var c = new getQuotes();
             c.GetGCTQuotes();
+            c.GetGCTDelayedQuotes();
         }
     }
 
     public class getQuotes
     {
         xHist.XigniteGlobalHistorical api = new xHist.XigniteGlobalHistorical();
+        xGlobalDelayed.XigniteGlobalQuotes xService = new xGlobalDelayed.XigniteGlobalQuotes();
 
         public void GetGCTQuotes()
         {
@@ -26,11 +28,23 @@ namespace XigniteTest
 
             for (int i = 0; i < call.Count(); i++)
             {
-                var Outcome = call[i].Outcome;
+                var Outcome = call[i].Outcome + call[i].Message;
             }
             
         }
-           
+
+        public void GetGCTDelayedQuotes()
+        {
+
+            xGlobalDelayed.GlobalQuote[] call = xService.GetGlobalDelayedQuotes("GCT", xGlobalDelayed.IdentifierTypes.Symbol);
+
+            for (int i = 0; i < call.Count(); i++)
+            {
+                var Outcome = call[i].Outcome + call[i].Message;
+            }
+
+        }
+
     }
 
 }
